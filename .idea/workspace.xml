@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="efcc8771-f074-4ee8-872b-bdc2ee3e81f2" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="todoapp" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VbIhqbiEh3PMwcXWpSfnhsH98p" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="Python.DjangoServer" factoryName="Django server">
+      <module name="todoapp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="todo-app.settings.dev" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efcc8771-f074-4ee8-872b-bdc2ee3e81f2" name="Default Changelist" comment="" />
+      <created>1577515489127</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577515489127</updated>
+      <workItem from="1577515491904" duration="233000" />
+      <workItem from="1577770899849" duration="2872000" />
+      <workItem from="1577867815491" duration="17350000" />
+      <workItem from="1577886643146" duration="393000" />
+      <workItem from="1577955518865" duration="1365000" />
+      <workItem from="1577956998804" duration="23000" />
+      <workItem from="1577957292463" duration="81000" />
+      <workItem from="1577957390325" duration="9543000" />
+      <workItem from="1578003832045" duration="9052000" />
+      <workItem from="1578308093592" duration="918000" />
+      <workItem from="1578315743626" duration="11528000" />
+      <workItem from="1578642967464" duration="13324000" />
+      <workItem from="1578729805870" duration="18051000" />
+      <workItem from="1578758672526" duration="6059000" />
+    </task>
+    <task id="LOCAL-00001" summary="Первый коммит, для чекпоинта">
+      <created>1578765012203</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1578765012203</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Первый коммит, для чекпоинта" />
+    <option name="LAST_COMMIT_MESSAGE" value="Первый коммит, для чекпоинта" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="485" y="99" width="936" height="807" key="CommitChangelistDialog2" timestamp="1578765287482">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="485" y="99" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1578765287482" />
+    <state width="1874" height="288" key="GridCell.Tab.0.bottom" timestamp="1578761635061">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635061" />
+    <state width="1874" height="288" key="GridCell.Tab.0.center" timestamp="1578761635060">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635060" />
+    <state width="1874" height="288" key="GridCell.Tab.0.left" timestamp="1578761635058">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635058" />
+    <state width="1874" height="288" key="GridCell.Tab.0.right" timestamp="1578761635061">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635061" />
+    <state x="474" y="71" key="SettingsEditor" timestamp="1578765251892">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="474" y="71" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1578765251892" />
+    <state x="551" y="244" width="804" height="518" key="Vcs.Push.Dialog.v2" timestamp="1578765321709">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="551" y="244" width="804" height="518" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1578765321709" />
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1578749709003">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1578749709003" />
+  </component>
+</project>
