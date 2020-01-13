@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="efcc8771-f074-4ee8-872b-bdc2ee3e81f2" name="Default Changelist" comment="" />
+    <list default="true" id="efcc8771-f074-4ee8-872b-bdc2ee3e81f2" name="Default Changelist" comment="Первый коммит, для чекпоинта">
+      <change afterPath="$PROJECT_DIR$/src/components/Auth/Auth.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo-app/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo-app/settings/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/settings/dev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo-app/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/settings/prod.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +117,8 @@
       <workItem from="1578315743626" duration="11528000" />
       <workItem from="1578642967464" duration="13324000" />
       <workItem from="1578729805870" duration="18051000" />
-      <workItem from="1578758672526" duration="6059000" />
+      <workItem from="1578758672526" duration="9562000" />
+      <workItem from="1578896765988" duration="16292000" />
     </task>
     <task id="LOCAL-00001" summary="Первый коммит, для чекпоинта">
       <created>1578765012203</created>
@@ -141,26 +151,26 @@
     <option name="LAST_COMMIT_MESSAGE" value="Первый коммит, для чекпоинта" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="485" y="99" width="936" height="807" key="CommitChangelistDialog2" timestamp="1578765287482">
+    <state x="483" y="81" width="936" height="807" key="CommitChangelistDialog2" timestamp="1578929879760">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="485" y="99" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1578765287482" />
-    <state width="1874" height="288" key="GridCell.Tab.0.bottom" timestamp="1578761635061">
+    <state x="483" y="81" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1578929879760" />
+    <state width="1874" height="288" key="GridCell.Tab.0.bottom" timestamp="1578911936592">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635061" />
-    <state width="1874" height="288" key="GridCell.Tab.0.center" timestamp="1578761635060">
+    <state width="1874" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1578911936592" />
+    <state width="1874" height="288" key="GridCell.Tab.0.center" timestamp="1578911936591">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635060" />
-    <state width="1874" height="288" key="GridCell.Tab.0.left" timestamp="1578761635058">
+    <state width="1874" height="288" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1578911936591" />
+    <state width="1874" height="288" key="GridCell.Tab.0.left" timestamp="1578911936590">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635058" />
-    <state width="1874" height="288" key="GridCell.Tab.0.right" timestamp="1578761635061">
+    <state width="1874" height="288" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1578911936590" />
+    <state width="1874" height="288" key="GridCell.Tab.0.right" timestamp="1578911936591">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="288" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578761635061" />
+    <state width="1874" height="288" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1578911936591" />
     <state x="474" y="71" key="SettingsEditor" timestamp="1578765251892">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -169,6 +179,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="551" y="244" width="804" height="518" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1578765321709" />
+    <state x="701" y="446" width="507" height="150" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578929860697">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="701" y="446" width="507" height="150" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1578929860697" />
     <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1578749709003">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
+import "./Auth.scss"
 
 
 const Task = ({getToken}) => {
     const [loginValue, setLoginValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
-
-    // const toggleFormVisible = () => {
-    //     setFormVisible(!visibleForm);
-    //     // setInputValue(text)
-    // };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -18,18 +14,9 @@ const Task = ({getToken}) => {
         };
         getToken(obj)
     };
-    //
-    // const onChangeCheckbox = (e) => {
-    //     const obj = {
-    //         "list": list,
-    //         "task": id,
-    //         "completed": e.target.checked
-    //     };
-    //     onCompleteTask(obj)
-    // };
 
     return (
-        <div>
+        <div className="login">
             <h1>Login</h1>
             <form>
                 <input type="text" placeholder="Логин" name="username" value={loginValue}

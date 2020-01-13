@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Route, Switch, useHistory} from "react-router-dom";
+import {Route, useHistory, Redirect} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -10,28 +10,31 @@ function App() {
     const [colors, setColors] = useState(null);
     const [lists, setLists] = useState(null);
     const [activeItem, setActiveItem] = useState(null);
-    const [token, setToken] = useState(null);
-    // const [auth, setAuth] = useState(null);
+    // const [token, setToken] = useState(null);
+    const [auth, setAuth] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
     let history = useHistory();
 
     const getToken = (obj) => {
         if (obj) {
-            axios.post('http://localhost:8000/api/auth/token/login/', {username: obj.login, password: obj.password})
+            axios.post('http://localhost:8000/api/auth/token/login/',
+                {username: obj.login, password: obj.password})
                 .then(({data}) => {
                     localStorage.setItem("token", data.auth_token);
-                    setToken(data.auth_token);
+                    // setToken(data.auth_token);
                     const config = {
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `token ${token}`
+                            'Authorization': `token ${data.auth_token}`
                         }
                     };
-                    // setAuth(config);
-                    history.push('/');
-                    return config
+                    setAuth(config);
+                    setIsLogin(true);
+                    history.push('/')
+                    // return config
                 })
                 .catch((e) => {
-                    alert(e.message)
+                    alert(e.response.data.non_field_errors)
                 });
         } else {
             const token = localStorage.getItem("token");
@@ -41,16 +44,21 @@ function App() {
                     'Authorization': `token ${token}`
                 }
             };
-            setToken(token);
-            // setAuth(config);
+            // setToken(token);
+            setAuth(config);
+            setIsLogin(true);
             history.push('/');
             return config
         }
     };
 
+    // useEffect(() => {
+    //     getToken();
+    // }, []);
+
+
     const getList = (auth) => {
-        console.log(auth)
-        axios.get("http://localhost:8000/api/lists", auth).then(({data}) => {
+        axios.get("http://localhost:8000/api/lists/", auth).then(({data}) => {
             setLists(data);
         });
     };
@@ -59,31 +67,34 @@ function App() {
         if (!localStorage.getItem("token")) {
             history.push('/login')
         } else {
-            const auth = getToken();
+            const token = localStorage.getItem("token");
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `token ${token}`
+                }
+            };
+            if (!isLogin) {
+                setAuth(config);
+                setIsLogin(true);
+            }
             if (auth) {
-                axios.get("http://localhost:8000/api/colors", auth).then(({data}) => {
+                axios.get("http://localhost:8000/api/colors/", auth).then(({data}) => {
                     setColors(data);
                 });
-                axios.get("http://localhost:8000/api/lists", auth).then(({data}) => {
-                    setLists(data);
-                });
-                getList(auth);
                 setInterval(getList(auth), 1000 * 10)
-            } else {
-                history.push('/login')
             }
         }
-    }, []);
-
+    }, [auth, isLogin, history]);
 
     const onAddList = (inputValue, color) => {
-        axios.post('http://localhost:8000/api/lists/create/', {name: inputValue, color: color.id})
+        // const auth = getToken();
+        axios.post('http://localhost:8000/api/lists/create/', {name: inputValue, color: color.id}, auth)
             .then(({data}) => {
                 const listObj = {...data, color: {name: color.name, hex: color.hex}, tasks: []};
                 const newList = [...lists, listObj];
                 setLists(newList);
             });
-
     };
 
     const onAddTask = (listId, taskObj) => {
@@ -91,7 +102,7 @@ function App() {
             list: listId,
             text: taskObj.text,
             completed: taskObj.completed
-        })
+        }, auth)
             .then(({data}) => {
                 const newTaskObj = {...taskObj, id: data.id};
                 const newList = lists.map(item => {
@@ -109,7 +120,7 @@ function App() {
         const newList = lists.filter(list => {
             // return list.id === item.id ? true : false
             if (list.id === item.id) {
-                axios.delete("http://localhost:8000/api/lists/destroy/" + item.id).catch(() => {
+                axios.delete("http://localhost:8000/api/lists/destroy/" + item.id + '/', auth).catch(() => {
                     alert('Не удалось удалить список...')
                 });
                 return false
@@ -127,7 +138,7 @@ function App() {
             }
             return item
         });
-        axios.patch('http://localhost:8000/api/lists/update/' + id + '/', {name: title})
+        axios.patch('http://localhost:8000/api/lists/update/' + id + '/', {name: title}, auth)
             .catch(() => alert('Не удалось обновить название'))
             .finally(() => {
                 setLists(newList);
@@ -143,7 +154,7 @@ function App() {
                 return item
             });
             setLists(newList);
-            axios.delete('http://localhost:8000/api/tasks/destroy/' + taskId)
+            axios.delete('http://localhost:8000/api/tasks/destroy/' + taskId + '/', auth)
                 .catch(() => {
                     alert('Не удалось удалить задачу...')
                 })
@@ -154,7 +165,7 @@ function App() {
         const newList = lists.map(item => {
             if (item.id === obj.list) {
                 let newTask = item.tasks.find(task => task.id === obj.task);
-                newTask.text = obj.text
+                newTask.text = obj.text;
                 item.tasks.text = obj.text
             }
             return item
@@ -163,7 +174,7 @@ function App() {
             list: obj.list,
             text: obj.text,
             completed: obj.completed
-        })
+        }, auth)
             .catch(() => alert('Не удалось обновить задачу...'))
             .finally(() => {
                 setLists(newList)
@@ -181,7 +192,7 @@ function App() {
         axios.patch('http://localhost:8000/api/tasks/update/' + obj.task + '/', {
             list: obj.list,
             completed: obj.completed
-        })
+        }, auth)
             .catch(() => alert('Не удалось обновить задачу...'))
             .finally(() => {
                 setLists(newList)
@@ -195,49 +206,48 @@ function App() {
     }, [lists, history.location.pathname]);
 
     return (
-        <Switch>
-            <Route exact path="/login">
-                <Login getToken={getToken}/>
-            </Route>
+        <div className='todo'>
             {/*<Route exact path="/logout" component={Logout}/>*/}
-            <div className='todo'>
-                <div className='todo__sidebar'>
-                    <List
-                        onClickItem={item => history.push('/')}
-                        items={[
-                            {
-                                active: history.location.pathname === '/',
-                                icon: <FontAwesomeIcon icon={faBars}/>,
-                                name: "Все задачи"
-                            }
-                        ]}
-                    />
-                    {lists ? <List
-                        items={lists}
-                        onRemove={item => onRemove(item)}
-                        onClickItem={item => history.push(`/lists/${item.id}`)}
-                        activeItem={activeItem}
-                        isRemovable={true}
-                    /> : 'Загрузка...'}
-                    <AddList onAddList={onAddList} colors={colors}/>
-                </div>
-                <div className='todo__tasks'>
-                    <Route exact path='/'>
-                        {lists && lists.map(list =>
-                            <Tasks key={list.id} list={list} onAddTask={onAddTask} onEditTitle={onEditListTitle}
-                                   withoutEmpty={true} onRemoveTask={onRemoveTask} onEditTask={onEditTask}
-                                   onCompleteTask={onCompleteTask}
-                            />
-                        )}
-                    </Route>
-                    <Route path='/lists/:id'>
-                        {lists && activeItem &&
-                        <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle}
-                               onRemoveTask={onRemoveTask} onEditTask={onEditTask} onCompleteTask={onCompleteTask}/>}
-                    </Route>
-                </div>
+            {isLogin && <div className='todo__sidebar'>
+                <List
+                    onClickItem={item => history.push('/')}
+                    items={[
+                        {
+                            active: history.location.pathname === '/',
+                            icon: <FontAwesomeIcon icon={faBars}/>,
+                            name: "Все задачи"
+                        }
+                    ]}
+                />
+                {lists ? <List
+                    items={lists}
+                    onRemove={item => onRemove(item)}
+                    onClickItem={item => history.push(`/lists/${item.id}`)}
+                    activeItem={activeItem}
+                    isRemovable={true}
+                /> : 'Загрузка...'}
+                <AddList onAddList={onAddList} colors={colors}/>
+            </div>}
+            <div className='todo__tasks'>
+                <Route exact path='/'>
+                    {lists && lists.map(list =>
+                        <Tasks key={list.id} list={list} onAddTask={onAddTask} onEditTitle={onEditListTitle}
+                               withoutEmpty={true} onRemoveTask={onRemoveTask} onEditTask={onEditTask}
+                               onCompleteTask={onCompleteTask}
+                        />
+                    )}
+                </Route>
+                <Route path='/lists/:id'>
+                    {lists && activeItem &&
+                    <Tasks list={activeItem} onAddTask={onAddTask} onEditTitle={onEditListTitle}
+                           onRemoveTask={onRemoveTask} onEditTask={onEditTask}
+                           onCompleteTask={onCompleteTask}/>}
+                </Route>
             </div>
-        </Switch>
+            {!isLogin ? <Route exact path="/login">
+                <Login getToken={getToken}/>
+            </Route> : <Redirect to="/"/>}
+        </div>
     );
 }
 
