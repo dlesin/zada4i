@@ -42,6 +42,9 @@
         margin-top: 15px;
       }
     }
+    &-inline {
+      display: flex;
+    }
 
     &-new {
       display: flex;
@@ -86,12 +89,31 @@
       top: 50%;
     }
 
+
     &-row {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
 
+      &-executor {
+        font-size: 12px !important;
+      }
+
+      &-creator {
+        font-size: 12px !important;
+        opacity: 0;
+        transition: opacity 0.15s ease-in-out;
+      }
+
+      &-comment {
+        font-size: 12px !important;
+      }
+
       &:hover &-actions {
+        opacity: 1;
+      }
+
+      &:hover &-creator {
         opacity: 1;
       }
 
@@ -119,6 +141,7 @@
           }
         }
       }
+
 
       p {
         margin: 0px 20px;

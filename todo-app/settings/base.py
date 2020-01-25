@@ -1,5 +1,4 @@
 import os
-from corsheaders.defaults import default_headers
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
@@ -84,8 +83,10 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
         'user': 'backend.api.serializers.UserSerializer',
+        'user_list': 'backend.api.serializers.UserSerializer',
         'current_user': 'backend.api.serializers.UserSerializer',
-    }
+    },
+    # 'HIDE_USERS': True
 }
 
 # ACCOUNT_EMAIL_REQUIRED = False

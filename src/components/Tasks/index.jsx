@@ -6,7 +6,10 @@ import {faPen} from "@fortawesome/free-solid-svg-icons";
 import AddTaskForm from "./AddTaskForm";
 import Task from "./Task";
 
-export default function Tasks({list, onEditTitle, onAddTask, withoutEmpty, onRemoveTask, onEditTask, onCompleteTask}) {
+export default function Tasks({
+                                  list, currentUser, currentDepartment, onEditTitle, onAddTask, withoutEmpty,
+                                  onRemoveTask, onEditTask, onCompleteTask
+                              }) {
 
     const editTitle = () => {
         const newTitle = window.prompt('Название списка', list.name);
@@ -17,16 +20,19 @@ export default function Tasks({list, onEditTitle, onAddTask, withoutEmpty, onRem
             <Link to={`/lists/${list.id}`}>
                 <h2 style={{color: list.color.hex}} className='tasks__title'>
                     {list.name}
-                    <FontAwesomeIcon className='tasks__pen' onClick={editTitle} icon={faPen}/>
+                    {currentUser.is_leader &&
+                    <FontAwesomeIcon className='tasks__pen' onClick={editTitle} icon={faPen}/>}
                 </h2>
             </Link>
             <div className='tasks__items'>
                 {!withoutEmpty && list.tasks && !list.tasks.length && <h2>Задачи отсутствуют...</h2>}
                 {list.tasks && list.tasks.map(task =>
                     <Task key={task.id} list={list} onRemoveTask={onRemoveTask} onEditTask={onEditTask}
-                          {...task} onCompleteTask={onCompleteTask}/>
+                          {...task} currentUser={currentUser} currentDepartment={currentDepartment}
+                          onCompleteTask={onCompleteTask}/>
                 )}
-                <AddTaskForm list={list} onAddTask={onAddTask}/>
+                {currentUser.is_leader && <AddTaskForm list={list} currentUser={currentUser} currentDepartment={currentDepartment}
+                             onAddTask={onAddTask}/>}
             </div>
         </div>
     );

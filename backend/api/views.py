@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView
 
 from backend.api.serializers import (ColorSerializer, ListSerializer, CreateListSerializer, TaskSerializer,
-                                     CreateTaskSerializer)
-from backend.models import Color, List, Task
+                                     CreateTaskSerializer, DepartmentSerializer)
+from backend.models import Color, List, Task, User, Department
 
 
 class ListCreateAPIView(CreateAPIView):
@@ -39,14 +39,29 @@ class ListDestroyAPIView(DestroyAPIView):
     lookup_field = 'pk'
 
 
+class DepartmentListAPIView(ListAPIView):
+    # queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+    def get_queryset(self):
+        current_user = User.objects.get(username=self.request.user)
+        print(current_user.department_id)
+        return Department.objects.filter(id=current_user.department_id)
+
+
 class ColorListAPIView(ListAPIView):
     queryset = Color.objects.all()
     serializer_class = ColorSerializer
 
 
 class ListListAPIView(ListAPIView):
-    queryset = List.objects.all()
+    # queryset = List.objects.all()
     serializer_class = ListSerializer
+
+    def get_queryset(self):
+        current_user = User.objects.get(username=self.request.user)
+        # print(current_user.department)
+        return List.objects.filter(department=current_user.department)
 
 
 class TaskListAPIView(ListAPIView):

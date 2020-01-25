@@ -5,12 +5,13 @@ from django.urls import path, include
 #     TokenVerifyView)
 from backend.api.views import (
     ColorListAPIView, ListListAPIView, ListCreateAPIView, ListDestroyAPIView, TaskListAPIView,
-    ListUpdateAPIView, TaskCreateAPIView, TaskDestroyAPIView, TaskUpdateAPIView)
+    ListUpdateAPIView, TaskCreateAPIView, TaskDestroyAPIView, TaskUpdateAPIView, DepartmentListAPIView)
 
 urlpatterns = [
     path('colors/', ColorListAPIView.as_view(), name='colors'),
     path('tasks/', TaskListAPIView.as_view(), name='tasks'),
     path('lists/', ListListAPIView.as_view(), name='list'),
+    path('department/', DepartmentListAPIView.as_view(), name='department'),
     path('lists/create/', ListCreateAPIView.as_view(), name='list-create'),
     path('tasks/create/', TaskCreateAPIView.as_view(), name='task-create'),
     path('tasks/update/<int:pk>/', TaskUpdateAPIView.as_view(), name='task-update'),

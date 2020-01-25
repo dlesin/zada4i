@@ -1,17 +1,33 @@
 import React, {useState} from 'react';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import "./Tasks.scss"
 
-function AddTaskForm({list, onAddTask}) {
+function AddTaskForm({list, currentUser, currentDepartment, onAddTask}) {
     const [visibleForm, setFormVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
+
+    const options = currentDepartment && currentDepartment[0].users.map(item => item.last_name + ' ' + item.first_name);
+
+    const onSelect = (value) => {
+        setSelectedValue(value);
+    };
+
     const toggleFormVisible = () => {
         setFormVisible(!visibleForm);
         setInputValue('')
     };
+
     const addTask = () => {
+        const last_name = selectedValue.value.split(' ')[0];
+        const executorUser = currentDepartment[0].users.find(user => user.last_name === last_name);
+        // console.log(userId, currentUser)
         const obj = {
+            "creator": currentUser.id,
+            "executor": executorUser.id,
             "list": list.id,
             "text": inputValue,
             "completed": false
@@ -19,6 +35,7 @@ function AddTaskForm({list, onAddTask}) {
         onAddTask(list.id, obj);
         toggleFormVisible()
     };
+
     return (
         <div className="tasks__form">
             {!visibleForm ? (<div onClick={toggleFormVisible} className="tasks__form-new">
@@ -26,8 +43,12 @@ function AddTaskForm({list, onAddTask}) {
                 <span>Новая задача</span>
             </div>) : (
                 <div className="tasks__form-block">
-                    <input value={inputValue} onChange={e => setInputValue(e.target.value)}
-                           type='text' placeholder='Текс задачи' className='field'/>
+                    <div className="tasks__form-inline">
+                        <input value={inputValue} onChange={e => setInputValue(e.target.value)}
+                               type='text' placeholder='Текс задачи' className='field'/>
+                        <Dropdown options={options} onChange={onSelect} value={selectedValue}
+                                  placeholder="Select an option"/>
+                    </div>
                     <button onClick={addTask} className='button'>Добавить задачу</button>
                     <button onClick={toggleFormVisible} className='button button--grey'>Отмена</button>
                 </div>)
