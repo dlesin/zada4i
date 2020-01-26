@@ -45,7 +45,7 @@ class DepartmentListAPIView(ListAPIView):
 
     def get_queryset(self):
         current_user = User.objects.get(username=self.request.user)
-        print(current_user.department_id)
+        # print(current_user.department_id)
         return Department.objects.filter(id=current_user.department_id)
 
 
@@ -65,5 +65,5 @@ class ListListAPIView(ListAPIView):
 
 
 class TaskListAPIView(ListAPIView):
-    queryset = Task.objects.all()
+    queryset = Task.objects.order_by('-created_at')
     serializer_class = TaskSerializer

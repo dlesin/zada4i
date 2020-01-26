@@ -81,7 +81,7 @@ const Task = ({
                     <p className="tasks__items-row-creator">
                         Создатель: {currentDepartment && loadCreatorLastName(creator, currentDepartment)}
                     </p>
-                    {currentUser.is_leader && <div className="tasks__items-row-actions">
+                    {currentUser && currentUser.is_leader && <div className="tasks__items-row-actions">
                         <div>
                             <FontAwesomeIcon onClick={toggleFormVisible} className='tasks__pen' icon={faPen}/>
                         </div>

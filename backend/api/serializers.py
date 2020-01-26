@@ -64,7 +64,7 @@ class CreateListSerializer(ModelSerializer):
 
     class Meta:
         model = List
-        fields = ['id', 'name', 'color', 'created_at', 'timestamp']
+        fields = ['id', 'name', 'color', 'department', 'created_at', 'timestamp']
 
 
 class CreateTaskSerializer(ModelSerializer):

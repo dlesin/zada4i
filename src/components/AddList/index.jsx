@@ -55,7 +55,7 @@ const AddList = ({colors, onAddList}) => {
                         value={inputValue}
                         type='text'
                         placeholder='Название списка'
-                        className='field'
+                        className='field field-w100'
                     />
                     <div className='add-list__popup-colors'>
                         {colors.map(color => (

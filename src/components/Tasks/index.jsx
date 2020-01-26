@@ -20,7 +20,7 @@ export default function Tasks({
             <Link to={`/lists/${list.id}`}>
                 <h2 style={{color: list.color.hex}} className='tasks__title'>
                     {list.name}
-                    {currentUser.is_leader &&
+                    {currentUser && currentUser.is_leader &&
                     <FontAwesomeIcon className='tasks__pen' onClick={editTitle} icon={faPen}/>}
                 </h2>
             </Link>
@@ -31,7 +31,7 @@ export default function Tasks({
                           {...task} currentUser={currentUser} currentDepartment={currentDepartment}
                           onCompleteTask={onCompleteTask}/>
                 )}
-                {currentUser.is_leader && <AddTaskForm list={list} currentUser={currentUser} currentDepartment={currentDepartment}
+                {currentUser && currentUser.is_leader && <AddTaskForm list={list} currentUser={currentUser} currentDepartment={currentDepartment}
                              onAddTask={onAddTask}/>}
             </div>
         </div>

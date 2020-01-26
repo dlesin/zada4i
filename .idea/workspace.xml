@@ -2,22 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efcc8771-f074-4ee8-872b-bdc2ee3e81f2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/Auth/Profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tasks/History.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddList/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddList/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Auth/Auth.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Auth.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Auth/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Logout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/AddTaskForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/AddTaskForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/Task.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/Task.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/Tasks.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/Tasks.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo-app/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/settings/base.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,11 +59,17 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Tasks" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Tasks" />
+      <recent name="$PROJECT_DIR$/src/components/Auth" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="dev" type="Python.DjangoServer" factoryName="Django server">
@@ -132,7 +139,8 @@
       <workItem from="1579001052093" duration="10924000" />
       <workItem from="1579334666292" duration="23060000" />
       <workItem from="1579371482582" duration="5123000" />
-      <workItem from="1579943300963" duration="7949000" />
+      <workItem from="1579943300963" duration="22057000" />
+      <workItem from="1580025839795" duration="19489000" />
     </task>
     <task id="LOCAL-00001" summary="Первый коммит, для чекпоинта">
       <created>1578765012203</created>
@@ -148,7 +156,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578929935549</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Много изменений">
+      <created>1579951829600</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1579951829600</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,37 +184,38 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Первый коммит, для чекпоинта" />
-    <option name="LAST_COMMIT_MESSAGE" value="Первый коммит, для чекпоинта" />
+    <MESSAGE value="Много изменений" />
+    <option name="LAST_COMMIT_MESSAGE" value="Много изменений" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="481" y="63" width="936" height="807" key="CommitChangelistDialog2" timestamp="1578929935417">
+    <state x="479" y="45" width="936" height="807" key="CommitChangelistDialog2" timestamp="1579951829439">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="481" y="63" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1578929935417" />
-    <state width="1874" height="222" key="GridCell.Tab.0.bottom" timestamp="1579943344917">
+    <state x="479" y="45" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1579951829439" />
+    <state width="1874" height="222" key="GridCell.Tab.0.bottom" timestamp="1580026327707">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579943344917" />
-    <state width="1874" height="222" key="GridCell.Tab.0.center" timestamp="1579943344916">
+    <state width="1874" height="222" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1580026327707" />
+    <state width="1874" height="222" key="GridCell.Tab.0.center" timestamp="1580026327706">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="222" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579943344916" />
-    <state width="1874" height="222" key="GridCell.Tab.0.left" timestamp="1579943344915">
+    <state width="1874" height="222" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1580026327706" />
+    <state width="1874" height="222" key="GridCell.Tab.0.left" timestamp="1580026327705">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="222" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579943344915" />
-    <state width="1874" height="222" key="GridCell.Tab.0.right" timestamp="1579943344916">
+    <state width="1874" height="222" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1580026327705" />
+    <state width="1874" height="222" key="GridCell.Tab.0.right" timestamp="1580026327706">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="222" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579943344916" />
+    <state width="1874" height="222" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580026327706" />
     <state x="474" y="71" key="SettingsEditor" timestamp="1578765251892">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="474" y="71" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1578765251892" />
-    <state x="549" y="226" width="804" height="518" key="Vcs.Push.Dialog.v2" timestamp="1578929949139">
+    <state x="547" y="208" width="804" height="518" key="Vcs.Push.Dialog.v2" timestamp="1579951842753">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="549" y="226" width="804" height="518" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1578929949139" />
+    <state x="547" y="208" width="804" height="518" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1579951842753" />
     <state x="701" y="446" width="507" height="150" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578929860697">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -208,9 +224,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="603" y="275" width="714" height="538" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1579944475052" />
-    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1579947886132">
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1580037244407">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1579947886132" />
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1580037244407" />
   </component>
 </project>

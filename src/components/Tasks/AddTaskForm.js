@@ -22,9 +22,14 @@ function AddTaskForm({list, currentUser, currentDepartment, onAddTask}) {
     };
 
     const addTask = () => {
-        const last_name = selectedValue.value.split(' ')[0];
+        let last_name;
+        if(selectedValue.value) {
+            last_name = selectedValue.value.split(' ')[0];
+        } else {
+            alert('Нужно выбрать исполнителя!');
+            return;
+        }
         const executorUser = currentDepartment[0].users.find(user => user.last_name === last_name);
-        // console.log(userId, currentUser)
         const obj = {
             "creator": currentUser.id,
             "executor": executorUser.id,

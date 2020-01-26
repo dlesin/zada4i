@@ -1,10 +1,28 @@
 import React, {useState} from 'react';
 import "./Auth.scss"
+import axios from "axios";
+import {useHistory} from "react-router-dom";
 
-
-const Task = ({getToken}) => {
+const Task = () => {
     const [loginValue, setLoginValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
+    let history = useHistory();
+
+    const getToken = (obj) => {
+        if (obj) {
+            axios.post('http://localhost:8000/api/auth/token/login/',
+                {username: obj.login, password: obj.password})
+                .then(({data}) => {
+                    localStorage.setItem("token", data.auth_token);
+                    history.push('/')
+                })
+                .catch((e) => {
+                    alert(e.response.data.non_field_errors)
+                });
+        } else {
+            history.push('/');
+        }
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();

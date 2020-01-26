@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import {AddList, List, Tasks} from "./components";
-import Login from "./components/Auth/Login"
+import History from "./components/Tasks/History"
 
 function App() {
     const [colors, setColors] = useState(null);
@@ -18,43 +18,6 @@ function App() {
     const [isLoad, setLoad] = useState(false);
     let history = useHistory();
 
-    const getToken = (obj) => {
-        if (obj) {
-            axios.post('http://localhost:8000/api/auth/token/login/',
-                {username: obj.login, password: obj.password})
-                .then(({data}) => {
-                    localStorage.setItem("token", data.auth_token);
-                    // setToken(data.auth_token);
-                    const config = {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `token ${data.auth_token}`
-                        }
-                    };
-                    setAuth(config);
-                    setIsLogin(true);
-                    history.push('/')
-                    // return config
-                })
-                .catch((e) => {
-                    alert(e.response.data.non_field_errors)
-                });
-        } else {
-            const token = localStorage.getItem("token");
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `token ${token}`
-                }
-            };
-            // setToken(token);
-            setAuth(config);
-            setIsLogin(true);
-            history.push('/');
-            return config
-        }
-    };
-
     const getList = (auth) => {
         const get = () => {
             axios.get("http://localhost:8000/api/lists/", auth).then(({data}) => {
@@ -66,8 +29,8 @@ function App() {
 
 
     const onAddList = (inputValue, color) => {
-        // const auth = getToken();
-        axios.post('http://localhost:8000/api/lists/create/', {name: inputValue, color: color.id}, auth)
+        console.log(user)
+        axios.post('http://localhost:8000/api/lists/create/', {name: inputValue, color: color.id, department: user.department}, auth)
             .then(({data}) => {
                 const listObj = {...data, color: {name: color.name, hex: color.hex}, tasks: []};
                 const newList = [...lists, listObj];
@@ -241,6 +204,16 @@ function App() {
                         </li>
                     </ul>
                     <List
+                        onClickItem={item => history.push('/history')}
+                        items={[
+                            {
+                                active: history.location.pathname === '/history',
+                                icon: <FontAwesomeIcon icon={faBars}/>,
+                                name: "История"
+                            }
+                        ]}
+                    />
+                    <List
                         onClickItem={item => history.push('/')}
                         items={[
                             {
@@ -277,11 +250,10 @@ function App() {
                                onRemoveTask={onRemoveTask} onEditTask={onEditTask}
                                onCompleteTask={onCompleteTask}/>}
                     </Route>
+                    <Route path='/history'>
+                        <History auth={auth} currentUser={user} currentDepartment={department}/>
+                    </Route>
                 </div>
-
-                {!isLogin && <Route exact path="/login">
-                    <Login getToken={getToken}/>
-                </Route>}
             </div> :
             (<div></div>)
     );
