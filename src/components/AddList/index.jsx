@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
+import {Context} from '../../context'
 import Badge from "../Badge";
 import List from "../List";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -6,10 +7,11 @@ import {faPlus, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
 import "./AddList.scss";
 
 
-const AddList = ({colors, onAddList}) => {
+const AddList = ({colors}) => {
     const [visiblePopup, setViseblePopup] = useState(false);
     const [selectedColor, selectColor] = useState(1);
     const [inputValue, setInputValue] = useState("");
+    const {onAddList} = useContext(Context);
 
     useEffect(() => {
         if (Array.isArray(colors)) {

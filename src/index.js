@@ -5,8 +5,8 @@ import App from './App';
 import Login from "./components/Auth/Login"
 import Logout from "./components/Auth/Logout"
 import Profile from "./components/Auth/Profile"
-
 import './index.scss';
+
 
 const routing = (
     <Router>
