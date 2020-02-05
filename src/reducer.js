@@ -1,4 +1,4 @@
-export const reduser = (state, action) => {
+export const Reduser = (state, action) => {
     switch (action.type) {
         case 'GET_AUTH':
             return {
@@ -33,7 +33,7 @@ export const reduser = (state, action) => {
         case 'EDIT_LIST':
             return {
                 ...state,
-                ...action.payload
+                lists: [...action.payload]
             };
         case 'REMOVE_LIST':
             return {
@@ -43,14 +43,19 @@ export const reduser = (state, action) => {
         case 'ADD_TASK':
             return {
                 ...state,
-                ...action.payload
+                lists: [...action.payload]
             };
         case 'EDIT_TASK':
             return {
                 ...state,
-                ...action.payload
+                lists: [...action.payload]
             };
         case 'COMPLETE_TASK':
+            return {
+                ...state,
+                lists: [...action.payload]
+            };
+        case 'HISTORY_TASK':
             return {
                 ...state,
                 ...action.payload
@@ -58,7 +63,7 @@ export const reduser = (state, action) => {
         case 'REMOVE_TASK':
             return {
                 ...state,
-                ...action.payload
+                lists: [...action.payload]
             };
         case 'IS_LOAD':
             return {

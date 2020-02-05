@@ -1,30 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import "./Tasks.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {Context} from "../../context";
 
-const History = ({auth, currentUser, currentDepartment}) => {
-    const [tasks, setTasks] = useState([]);
+const History = () => {
+    const API_URL = process.env.REACT_APP_API_URL;
     const [tasksToSearch, setTasksToSearch] = useState([]);
     const [isLoad, setLoad] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const {state, dispatch} = useContext(Context);
     const handleChange = event => {
         setSearchTerm(event.target.value);
     };
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/tasks/", auth).then(({data}) => {
-            setTasks(data);
-            setLoad(true)
+        axios.get(API_URL + "/api/tasks/", state.auth).then(({data}) => {
+            dispatch({
+                type: 'HISTORY_TASK',
+                payload: {
+                    tasks: data
+                }
+            });
         });
-    }, [auth]);
+        setLoad(true)
+    }, [state.auth, API_URL, dispatch]);
 
     useEffect(() => {
-        if (currentDepartment && tasks) {
-            const userlist = currentDepartment[0].users;
-            let newArray = tasks.map(item => {
+        if (state.department && state.tasks) {
+            const userlist = state.department[0].users;
+            let newArray = state.tasks.map(item => {
                 const executor = userlist.find(user => user.id === item.executor);
                 if (executor && item.executor === executor.id) {
                     item.executor = executor.last_name
@@ -37,7 +44,7 @@ const History = ({auth, currentUser, currentDepartment}) => {
             });
             setTasksToSearch(newArray);
         }
-    }, [tasks, isLoad, currentDepartment]);
+    }, [state.tasks, isLoad, state.department]);
 
     const searchArray = tasksToSearch;
 
@@ -57,9 +64,9 @@ const History = ({auth, currentUser, currentDepartment}) => {
                            onChange={handleChange}/>
                 </div>
                 <div className='tasks__items'>
-                    {tasks && searchResults.map(item => (
+                    {isLoad && searchResults.map(item => (
                         <div key={item.id} className="tasks__items-row">
-                            <div className="tasks__items-row">
+                            <div className="tasks__items-row-task">
                                 <div className='checkbox'>
                                     <input id={`task-${item.id}`} type='checkbox'
                                            checked={item.completed} readOnly/>

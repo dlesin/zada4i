@@ -37,7 +37,7 @@ class ColorSerializer(ModelSerializer):
 class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'creator', 'executor', 'list', 'color', 'text', 'comment', 'completed', 'created_at',
+        fields = ['id', 'creator', 'executor', 'list', 'color', 'text', 'comment', 'un_comment', 'completed', 'priority', 'created_at',
                   'timestamp']
 
 

@@ -10,7 +10,7 @@ import "./AddList.scss";
 const AddList = ({colors}) => {
     const [visiblePopup, setViseblePopup] = useState(false);
     const [selectedColor, selectColor] = useState(1);
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState('');
     const {onAddList} = useContext(Context);
 
     useEffect(() => {

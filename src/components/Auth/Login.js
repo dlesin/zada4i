@@ -3,14 +3,16 @@ import "./Auth.scss"
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 
-const Task = () => {
+const Login = () => {
+    const API_URL = process.env.REACT_APP_API_URL;
+
     const [loginValue, setLoginValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     let history = useHistory();
 
     const getToken = (obj) => {
         if (obj) {
-            axios.post('http://localhost:8000/api/auth/token/login/',
+            axios.post(API_URL + '/api/auth/token/login/',
                 {username: obj.login, password: obj.password})
                 .then(({data}) => {
                     localStorage.setItem("token", data.auth_token);
@@ -35,17 +37,15 @@ const Task = () => {
 
     return (
         <div className="login">
-            <h1>Login</h1>
-            <form>
-                <input type="text" placeholder="Логин" name="username" value={loginValue}
+            <h2>Login</h2>
+            <form className="login__form">
+                <input className="field field-w100" type="text" placeholder="Логин" name="username" value={loginValue}
                        onChange={e => setLoginValue(e.target.value)}/>
-                <br/>
-                <input type="text" placeholder="Пароль" name="password" value={passwordValue}
+                <input className="field field-w100" type="text" placeholder="Пароль" name="password" value={passwordValue}
                        onChange={e => setPasswordValue(e.target.value)}/>
-                <br/>
-                <input onClick={onSubmit} type="submit"/>
+                <input className="button" onClick={onSubmit} type="submit"/>
             </form>
         </div>
     );
 };
-export default Task;
+export default Login;

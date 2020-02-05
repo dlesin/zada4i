@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useState} from "react";
 import {Link, Route, useHistory} from "react-router-dom";
 import {Context} from './context'
-import {reduser} from './reducer'
+import {Reduser} from './reducer'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -9,7 +9,10 @@ import {AddList, List, Tasks} from "./components";
 import History from "./components/Tasks/History"
 
 function App() {
-    const [state, dispatch] = useReducer(reduser, false);
+
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    const [state, dispatch] = useReducer(Reduser, false);
     const [activeItem, setActiveItem] = useState(null);
     let history = useHistory();
 
@@ -32,27 +35,26 @@ function App() {
         }
     }, [history]);
 
-    const getList = (state) => {
+    const getList = (auth) => {
         const get = () => {
-            axios.get("http://localhost:8000/api/lists/", state.auth).then(({data}) => dispatch({
+            auth && axios.get(API_URL + "/api/lists/", auth).then(({data}) => dispatch({
                 type: 'GET_LISTS',
                 payload: {
                     lists: data
                 }
             }));
         };
-        setInterval(get, 1000 * 30)
+        setInterval(get, 1000 * 60)
     };
 
     const onAddList = (inputValue, color) => {
-        axios.post('http://localhost:8000/api/lists/create/', {
+        axios.post(API_URL + '/api/lists/create/', {
             name: inputValue,
             color: color.id,
             department: state.me.department
         }, state.auth)
             .then(({data}) => {
                 const listObj = {...data, color: {name: color.name, hex: color.hex}, tasks: []};
-                console.log(listObj)
                 dispatch({
                     type: 'ADD_LIST',
                     payload: listObj
@@ -61,7 +63,7 @@ function App() {
     };
 
     const onAddTask = (listId, taskObj) => {
-        axios.post('http://localhost:8000/api/tasks/create/', {
+        axios.post(API_URL + '/api/tasks/create/', {
             creator: taskObj.creator,
             executor: taskObj.executor,
             list: listId,
@@ -69,7 +71,7 @@ function App() {
             completed: taskObj.completed
         }, state.auth)
             .then(({data}) => {
-                const newTaskObj = {...taskObj, id: data.id};
+                const newTaskObj = {...taskObj, id: data.id, created_at: data.created_at};
                 const newList = state.lists.map(item => {
                     if (item.id === listId) {
                         item.tasks ? item.tasks = [...item.tasks, newTaskObj] : item.tasks = [newTaskObj]
@@ -87,7 +89,7 @@ function App() {
     const onRemove = item => {
         const newList = state.lists.filter(list => {
             if (list.id === item.id) {
-                axios.delete("http://localhost:8000/api/lists/destroy/" + item.id + '/', state.auth).catch(() => {
+                axios.delete(API_URL + "/api/lists/destroy/" + item.id + '/', state.auth).catch(() => {
                     alert('Не удалось удалить список...')
                 });
                 return false
@@ -108,7 +110,7 @@ function App() {
             }
             return item
         });
-        axios.patch('http://localhost:8000/api/lists/update/' + id + '/', {name: title}, state.auth)
+        axios.patch(API_URL + '/api/lists/update/' + id + '/', {name: title}, state.auth)
             .catch(() => alert('Не удалось обновить название'))
             .finally(() => {
                 dispatch({
@@ -130,7 +132,7 @@ function App() {
                 type: 'REMOVE_TASK',
                 payload: newList
             });
-            axios.delete('http://localhost:8000/api/tasks/destroy/' + taskId + '/', state.auth)
+            axios.delete(API_URL + '/api/tasks/destroy/' + taskId + '/', state.auth)
                 .catch(() => {
                     alert('Не удалось удалить задачу...')
                 })
@@ -142,13 +144,14 @@ function App() {
             if (item.id === obj.list) {
                 let newTask = item.tasks.find(task => task.id === obj.task);
                 newTask.text = obj.text;
-                item.tasks.text = obj.text
+                newTask.executor = obj.executor;
             }
             return item
         });
-        axios.patch('http://localhost:8000/api/tasks/update/' + obj.task + '/', {
+        axios.patch(API_URL + '/api/tasks/update/' + obj.task + '/', {
             list: obj.list,
             text: obj.text,
+            executor: obj.executor,
             completed: obj.completed
         }, state.auth)
             .catch(() => alert('Не удалось обновить задачу...'))
@@ -161,66 +164,67 @@ function App() {
     };
 
     const onCompleteTask = obj => {
-        const newList = state.lists.map(item => {
-            if (item.id === obj.list) {
-                let newTask = item.tasks.find(task => task.id === obj.task);
-                newTask.comment = obj.comment;
-                newTask.completed = obj.completed;
-            }
-            return item
-        });
-        axios.patch('http://localhost:8000/api/tasks/update/' + obj.task + '/', {
+        console.log(obj)
+        axios.patch(API_URL + '/api/tasks/update/' + obj.task + '/', {
             list: obj.list,
             executor: obj.executor,
             department: obj.department,
             completed: obj.completed,
             comment: obj.comment
         }, state.auth)
-            .catch(() => alert('Не удалось обновить задачу...'))
-            .finally(() => {
+            .then(({data}) => {
+                const newList = state.lists.map(item => {
+                    if (item.id === obj.list) {
+                        let newTask = item.tasks.find(task => task.id === obj.task);
+                        newTask.comment = obj.comment;
+                        newTask.completed = obj.completed;
+                        newTask.created_at = data.created_at
+                    }
+                    return item
+                });
                 dispatch({
                     type: 'COMPLETE_TASK',
                     payload: newList
                 });
             })
+            .catch(() => alert('Не удалось обновить задачу...'))
     };
 
     useEffect(() => {
-        // if (state.auth) {
-        state.auth && axios.get("http://localhost:8000/api/colors/", state.auth).then(({data}) => dispatch({
+        state.auth && axios.get(API_URL + "/api/colors/", state.auth).then(({data}) => dispatch({
             type: 'GET_COLORS',
             payload: {
                 colors: data
             }
         }));
-    }, [state.auth]);
+    }, [state.auth, API_URL]);
 
     useEffect(() => {
-        state.auth && axios.get("http://localhost:8000/api/auth/users/me/", state.auth).then(({data}) => dispatch({
+        state.auth && axios.get(API_URL + "/api/auth/users/me/", state.auth).then(({data}) => dispatch({
             type: 'GET_ME',
             payload: {
                 me: data
             }
         }));
-    }, [state.auth]);
+    }, [state.auth, API_URL]);
 
     useEffect(() => {
-        state.auth && axios.get("http://localhost:8000/api/lists/", state.auth).then(({data}) => dispatch({
+        state.auth && axios.get(API_URL + "/api/lists/", state.auth).then(({data}) => dispatch({
             type: 'GET_LISTS',
             payload: {
                 lists: data
             }
         }));
-    }, [state.auth]);
+    }, [state.auth, API_URL]);
 
     useEffect(() => {
-        state.auth && axios.get("http://localhost:8000/api/department/", state.auth).then(({data}) => dispatch({
+        state.auth && axios.get(API_URL + "/api/department/", state.auth).then(({data}) => dispatch({
             type: 'GET_DEPARTMENT',
             payload: {
                 department: data
             }
         }));
-    }, [state.auth]);
+    }, [state.auth, API_URL]);
 
     useEffect(() => {
         state.auth && state.me && state.lists && state.colors && state.department ?
@@ -243,24 +247,31 @@ function App() {
         const list = state.lists && state.lists.find(list => list.id === Number(listId));
         setActiveItem(list)
     }, [state.lists, history.location.pathname]);
-    console.log(state)
+
+    useEffect(() => {
+        getList(state.auth)
+    }, [state.auth]);
+
+    // console.log(state)
+
     return (
-        <Context.Provider value={{onAddList}}>
+        <Context.Provider
+            value={{state, dispatch, onAddList, onEditListTitle, onAddTask, onRemoveTask, onEditTask, onCompleteTask}}>
             {state.isload ?
                 <div className='todo'>
                     <div className='todo__sidebar'>
-                        <div className="todo__department">Отдел: {state.department && state.department[0].name}</div>
+                        <div className="todo__department">Отдел: {state.department[0].name}</div>
                         <ul className="todo__nav">
                             <li>
                                 <Link className="todo__profile"
-                                      to="/profile"><span>{state.me && state.me.first_name} {state.me && state.me.last_name}</span></Link>
+                                      to="/profile"><span>{state.me.first_name} {state.me.last_name}</span></Link>
                             </li>
                             <li>
                                 <Link className="todo__logout" to="/logout"><span>Выход</span></Link>
                             </li>
                         </ul>
                         <List
-                            onClickItem={item => history.push('/history')}
+                            onClickItem={() => history.push('/history')}
                             items={[
                                 {
                                     active: history.location.pathname === '/history',
@@ -270,7 +281,7 @@ function App() {
                             ]}
                         />
                         <List
-                            onClickItem={item => history.push('/')}
+                            onClickItem={() => history.push('/')}
                             items={[
                                 {
                                     active: history.location.pathname === '/',
@@ -279,34 +290,24 @@ function App() {
                                 }
                             ]}
                         />
-                        {state.me && <List
+                        <List
                             items={state.lists}
                             onRemove={item => onRemove(item)}
                             onClickItem={item => history.push(`/lists/${item.id}`)}
                             activeItem={activeItem}
                             isRemovable={state.me.is_leader}
-                        />}
-                        {state.me && state.me.is_leader && <AddList colors={state.colors}/>}
+                        />
+                        {state.me.is_leader && <AddList colors={state.colors}/>}
                     </div>
                     <div className='todo__tasks'>
                         <Route exact path='/'>
-                            {state.lists && state.lists.map(list =>
-                                <Tasks key={list.id} list={list} currentUser={state.me}
-                                       currentDepartment={state.department}
-                                       onAddTask={onAddTask}
-                                       onEditTitle={onEditListTitle}
-                                       withoutEmpty={true} onRemoveTask={onRemoveTask} onEditTask={onEditTask}
-                                       onCompleteTask={onCompleteTask}
-                                />
+                            {state.lists.map(list =>
+                                <Tasks key={list.id} list={list}/>
                             )}
                         </Route>
                         <Route path='/lists/:id'>
-                            {state.lists && activeItem &&
-                            <Tasks list={activeItem} currentUser={state.me} currentDepartment={state.department}
-                                   onAddTask={onAddTask}
-                                   onEditTitle={onEditListTitle}
-                                   onRemoveTask={onRemoveTask} onEditTask={onEditTask}
-                                   onCompleteTask={onCompleteTask}/>}
+                            {activeItem &&
+                            <Tasks list={activeItem} currentUser={state.me} currentDepartment={state.department}/>}
                         </Route>
                         <Route path='/history'>
                             <History auth={state.auth} currentUser={state.me} currentDepartment={state.department}/>

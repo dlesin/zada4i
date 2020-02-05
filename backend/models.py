@@ -52,7 +52,9 @@ class Task(models.Model):
     department = models.ForeignKey(Department, related_name='task_department', on_delete=models.SET_NULL, null=True)
     text = models.CharField(max_length=200)
     comment = models.TextField(blank=True, null=True)
+    un_comment = models.TextField(blank=True, null=True)
     completed = models.BooleanField(default=False)
+    priority = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 

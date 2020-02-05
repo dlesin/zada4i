@@ -3,6 +3,7 @@ venv
 **/__pycache__
 db.sqlite3
 node_modules
-build
+build*
 static
 package-lock.json
+.idea

@@ -1,20 +1,29 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faPen, faTimesCircle} from "@fortawesome/free-solid-svg-icons";
+import {Context} from "../../context";
 
-const Task = ({
-                  id, text, creator, executor, comment, completed, currentUser, currentDepartment,
-                  onRemoveTask, list, onEditTask, onCompleteTask
-              }) => {
+const Task = ({id, text, creator, executor, comment, completed, priority, created_at, list}) => {
     const [visibleForm, setFormVisible] = useState(false);
     const [commentForm, setCommentFormVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [commentValue, setCommentValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
+    const {state, onRemoveTask, onEditTask, onCompleteTask} = useContext(Context);
+
+    const options = state.department && state.department[0].users.map(item => item.last_name + ' ' + item.first_name);
+
+    const onSelect = (value) => {
+        setSelectedValue(value);
+    };
 
     const toggleFormVisible = () => {
         setFormVisible(!visibleForm);
         setInputValue(text)
     };
+
     const toggleCommentFormVisible = () => {
         setCommentFormVisible(!commentForm);
         setCommentValue('')
@@ -26,16 +35,19 @@ const Task = ({
         return obj.last_name
     };
 
-    const loadCreatorLastName = (creator, currentDepartment) => {
-        const userlist = currentDepartment[0].users;
-        const obj = userlist.find(user => user.id === creator);
-        return obj.last_name
-    };
-
     const editTask = () => {
+        let last_name;
+        if (selectedValue.value) {
+            last_name = selectedValue.value.split(' ')[0];
+        } else {
+            alert('Нужно выбрать исполнителя!');
+            return;
+        }
+        const executorUser = state.department[0].users.find(user => user.last_name === last_name);
         const obj = {
             "list": list,
             "task": id,
+            "executor": executorUser.id,
             "text": inputValue,
             "completed": false
         };
@@ -44,7 +56,7 @@ const Task = ({
     };
 
     const onResolveTask = () => {
-        executor === currentUser.id ? toggleCommentFormVisible() : alert("Вы не можете закрыть чужую задачу")
+        executor === state.me.id ? toggleCommentFormVisible() : alert("Вы не можете закрыть чужую задачу")
     };
 
     const onChangeCompleteTask = (e) => {
@@ -52,55 +64,72 @@ const Task = ({
             const obj = {
                 "list": list,
                 "task": id,
-                "executor": currentUser.id,
-                "department": currentUser.department,
+                "executor": state.me.id,
+                "department": state.me.department,
                 "comment": commentValue,
-                "completed": !completed
+                "completed": !completed,
             };
             onCompleteTask(obj);
             toggleCommentFormVisible();
         }
     };
-
+    // console.log(new Date(timestamp).toLocaleString());
+    // console.log(moment(timestamp, 'MM-DD-YYYY'))
     return (
         <div>
-            {!visibleForm ? (<div key={id} className='tasks__items-row'>
-                {!commentForm ? (<div className="tasks__items-row">
-                    <div className='checkbox'>
-                        <input id={`task-${id}`} type='checkbox'
-                               checked={completed} onChange={onResolveTask}/>
-                        <label htmlFor={`task-${id}`}>
-                            <FontAwesomeIcon className='checkbox__icon' icon={faCheck}/>
-                        </label>
-                    </div>
-                    <p>{text}</p>
-                    {comment && completed && <p className="tasks__items-row-comment">Коментарий: {comment}</p>}
-                    <p className="tasks__items-row-executor">
-                        Исполнитель: {currentDepartment && loadExecutorLastName(executor, currentDepartment)}
-                    </p>
-                    <p className="tasks__items-row-creator">
-                        Создатель: {currentDepartment && loadCreatorLastName(creator, currentDepartment)}
-                    </p>
-                    {currentUser && currentUser.is_leader && <div className="tasks__items-row-actions">
-                        <div>
-                            <FontAwesomeIcon onClick={toggleFormVisible} className='tasks__pen' icon={faPen}/>
-                        </div>
-                        <div>
-                            <FontAwesomeIcon onClick={() => onRemoveTask(list, id)} className='tasks__pen'
-                                             icon={faTimesCircle}/>
-                        </div>
-                    </div>}
+            {!visibleForm ? (
+                <div key={id}>
+                    {!commentForm ? (
+                        <div className='tasks__items-row'>
+                            <div className="tasks__items-row-task">
+                                <div className='checkbox'>
+                                    <input id={`task-${id}`} type='checkbox'
+                                           checked={completed} onChange={onResolveTask}/>
+                                    {priority ? (<label htmlFor={`task-${id}`} style={{"border": "1px solid red"}}>
+                                            <FontAwesomeIcon className='checkbox__icon' icon={faCheck}/>
+                                        </label>) :
+                                        (<label htmlFor={`task-${id}`}>
+                                            <FontAwesomeIcon className='checkbox__icon' icon={faCheck}/>
+                                        </label>)}
+                                </div>
+                                <p>{text}</p>
+                                {state.me.is_leader && <div className="tasks__items-row-actions">
+                                    <div>
+                                        <FontAwesomeIcon onClick={toggleFormVisible} className='tasks__pen'
+                                                         icon={faPen}/>
+                                    </div>
+                                    <div>
+                                        <FontAwesomeIcon onClick={() => onRemoveTask(list, id)} className='tasks__pen'
+                                                         icon={faTimesCircle}/>
+                                    </div>
+                                </div>}
+                            </div>
+                            <div className="tasks__items-info">
+                                {comment && completed &&
+                                <div className="tasks__items-row-comment">Коментарий: {comment}</div>}
+                                <div className="tasks__items-row-executor">
+                                    Исполнитель: {loadExecutorLastName(executor, state.department)}
+                                </div>
+                                <div className="tasks__items-row-date">
+                                    Дата: {created_at}
+                                </div>
+
+                            </div>
+                        </div>) : (
+                        <div className="tasks__form-block">
+                            <input value={commentValue} onChange={e => setCommentValue(e.target.value)}
+                                   type='text' placeholder='Комментарий' className='field'/>
+                            <button onClick={onChangeCompleteTask} className='button'>Готово</button>
+                            <button onClick={toggleCommentFormVisible} className='button button--grey'>Отмена</button>
+                        </div>)}
                 </div>) : (
-                    <div className="tasks__form-block">
-                        <input value={commentValue} onChange={e => setCommentValue(e.target.value)}
-                               type='text' placeholder='Комментарий' className='field'/>
-                        <button onClick={onChangeCompleteTask} className='button'>Готово</button>
-                        <button onClick={toggleCommentFormVisible} className='button button--grey'>Отмена</button>
-                    </div>)}
-            </div>) : (
                 <div className="tasks__form-block">
-                    <input value={inputValue} onChange={e => setInputValue(e.target.value)}
-                           type='text' placeholder='Текс задачи' className='field'/>
+                    <div className="tasks__form-inline">
+                        <input value={inputValue} onChange={e => setInputValue(e.target.value)}
+                               type='text' placeholder='Текс задачи' className='field'/>
+                        <Dropdown options={options} onChange={onSelect} value={selectedValue}
+                                  placeholder="Select an option"/>
+                    </div>
                     <button onClick={editTask} className='button'>Редактировать задачу</button>
                     <button onClick={toggleFormVisible} className='button button--grey'>Отмена</button>
                 </div>)}

@@ -5,6 +5,8 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 
 const Logout = () => {
+
+    const API_URL = process.env.REACT_APP_API_URL;
     let history = useHistory();
 
     const onMain = () => {
@@ -19,7 +21,7 @@ const Logout = () => {
                 'Authorization': `token ${token}`
             }
         };
-        axios.post('http://localhost:8000/api/auth/token/logout/',
+        axios.post(API_URL + '/api/auth/token/logout/',
             {auth_token: token}, config)
             .then(({data}) => {
                 localStorage.removeItem("token");

@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import "./Tasks.scss"
+import {Context} from "../../context";
 
-function AddTaskForm({list, currentUser, currentDepartment, onAddTask}) {
+function AddTaskForm({list}) {
     const [visibleForm, setFormVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
+    const {state, onAddTask} = useContext(Context);
 
-    const options = currentDepartment && currentDepartment[0].users.map(item => item.last_name + ' ' + item.first_name);
+    const options = state.department && state.department[0].users.map(item => item.last_name + ' ' + item.first_name);
 
     const onSelect = (value) => {
         setSelectedValue(value);
@@ -23,15 +25,20 @@ function AddTaskForm({list, currentUser, currentDepartment, onAddTask}) {
 
     const addTask = () => {
         let last_name;
-        if(selectedValue.value) {
-            last_name = selectedValue.value.split(' ')[0];
+        let executorUser;
+        if (state.me.is_leader) {
+            if (selectedValue.value) {
+                last_name = selectedValue.value.split(' ')[0];
+                executorUser = state.department[0].users.find(user => user.last_name === last_name);
+            } else {
+                alert('Нужно выбрать исполнителя!');
+                return;
+            }
         } else {
-            alert('Нужно выбрать исполнителя!');
-            return;
+            executorUser = state.me
         }
-        const executorUser = currentDepartment[0].users.find(user => user.last_name === last_name);
         const obj = {
-            "creator": currentUser.id,
+            "creator": state.me.id,
             "executor": executorUser.id,
             "list": list.id,
             "text": inputValue,
@@ -51,8 +58,8 @@ function AddTaskForm({list, currentUser, currentDepartment, onAddTask}) {
                     <div className="tasks__form-inline">
                         <input value={inputValue} onChange={e => setInputValue(e.target.value)}
                                type='text' placeholder='Текс задачи' className='field'/>
-                        <Dropdown options={options} onChange={onSelect} value={selectedValue}
-                                  placeholder="Select an option"/>
+                        {state.me.is_leader && <Dropdown options={options} onChange={onSelect} value={selectedValue}
+                                                         placeholder="Select an option"/>}
                     </div>
                     <button onClick={addTask} className='button'>Добавить задачу</button>
                     <button onClick={toggleFormVisible} className='button button--grey'>Отмена</button>
