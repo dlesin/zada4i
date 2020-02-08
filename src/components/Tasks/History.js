@@ -20,17 +20,31 @@ const History = () => {
         axios.get(API_URL + "/api/tasks/", state.auth).then(({data}) => {
             dispatch({
                 type: 'HISTORY_TASK',
-                payload: {
-                    tasks: data
-                }
+                payload: data
             });
         });
         setLoad(true)
     }, [state.auth, API_URL, dispatch]);
 
+    const getTasks = (auth) => {
+        const get = () => {
+            auth && axios.get(API_URL + "/api/tasks/", state.auth).then(({data}) => {
+                dispatch({
+                    type: 'HISTORY_TASK',
+                    payload: data
+                });
+            });
+        };
+        setInterval(get, 60000)
+    };
+    useEffect(() => {
+        getTasks(state.auth)
+    // eslint-disable-next-line
+    }, [state.auth]);
+
     useEffect(() => {
         if (state.department && state.tasks) {
-            const userlist = state.department[0].users;
+            const userlist = state.department.users;
             let newArray = state.tasks.map(item => {
                 const executor = userlist.find(user => user.id === item.executor);
                 if (executor && item.executor === executor.id) {

@@ -13,7 +13,7 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
     const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
     const {state, onRemoveTask, onEditTask, onCompleteTask} = useContext(Context);
 
-    const options = state.department && state.department[0].users.map(item => item.last_name + ' ' + item.first_name);
+    const options = state.department && state.department.users.map(item => item.last_name + ' ' + item.first_name);
 
     const onSelect = (value) => {
         setSelectedValue(value);
@@ -30,7 +30,7 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
     };
 
     const loadExecutorLastName = (executor, currentDepartment) => {
-        const userlist = currentDepartment[0].users;
+        const userlist = currentDepartment.users;
         const obj = userlist.find(user => user.id === executor);
         return obj.last_name
     };
@@ -43,7 +43,7 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
             alert('Нужно выбрать исполнителя!');
             return;
         }
-        const executorUser = state.department[0].users.find(user => user.last_name === last_name);
+        const executorUser = state.department.users.find(user => user.last_name === last_name);
         const obj = {
             "list": list,
             "task": id,

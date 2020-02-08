@@ -2,63 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efcc8771-f074-4ee8-872b-bdc2ee3e81f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env.developement" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/api/permissions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-BlackItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-BoldItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-ExtraBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-ExtraLight.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-ExtraLightItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Italic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Light.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-LightItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-MediumItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-SemiBold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-SemiBoldItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-Thin.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Montserrat/Montserrat-ThinItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Black.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-BlackItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-BoldItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Italic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Light.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-LightItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Medium.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-MediumItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Regular.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-Thin.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/fonts/Roboto/Roboto-ThinItalic.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddList/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddList/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Auth/Auth.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Auth.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auth/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Auth/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/AddTaskForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/AddTaskForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/History.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tasks/Task.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/Task.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tasks/Tasks.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/Tasks.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tasks/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tasks/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todo-app/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/settings/base.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/todo-app/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/settings/prod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo-app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo-app/wsgi/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/todo-app/wsgi/prod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,6 +161,10 @@
       <workItem from="1580457494195" duration="3629000" />
       <workItem from="1580480694644" duration="7089000" />
       <workItem from="1580806676029" duration="11001000" />
+      <workItem from="1580886853388" duration="1425000" />
+      <workItem from="1580992760424" duration="7277000" />
+      <workItem from="1581056459978" duration="23631000" />
+      <workItem from="1581084866445" duration="1135000" />
     </task>
     <task id="LOCAL-00001" summary="Первый коммит, для чекпоинта">
       <created>1578765012203</created>
@@ -239,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580228403968</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Улучшения UI">
+      <created>1580886926551</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1580886926551</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,45 +232,46 @@
     <MESSAGE value="Много изменений" />
     <MESSAGE value="Много улучшалок" />
     <MESSAGE value="Внедряем useReduce, useContext" />
-    <option name="LAST_COMMIT_MESSAGE" value="Внедряем useReduce, useContext" />
+    <MESSAGE value="Улучшения UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Улучшения UI" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="577" y="295" width="804" height="380" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580393903932">
+    <state x="575" y="277" width="804" height="380" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580994566373">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="577" y="295" width="804" height="380" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1580393903932" />
-    <state x="639" y="245" width="628" height="534" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1580391636210">
+    <state x="575" y="277" width="804" height="380" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1580994566373" />
+    <state x="637" y="227" width="628" height="534" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1581082845633">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="639" y="245" width="628" height="534" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1580391636210" />
-    <state x="475" y="9" width="936" height="807" key="CommitChangelistDialog2" timestamp="1580228403870">
+    <state x="637" y="227" width="628" height="534" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1581082845633" />
+    <state x="473" y="-9" width="936" height="807" key="CommitChangelistDialog2" timestamp="1580886926333">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="475" y="9" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580228403870" />
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1580829741394">
+    <state x="473" y="-9" width="936" height="807" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1580886926333" />
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom" timestamp="1581087372160">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1580829741394" />
-    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1580829741393">
+    <state width="1874" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581087372160" />
+    <state width="1874" height="253" key="GridCell.Tab.0.center" timestamp="1581087372160">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1580829741393" />
-    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1580829741393">
+    <state width="1874" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581087372160" />
+    <state width="1874" height="253" key="GridCell.Tab.0.left" timestamp="1581087372159">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1580829741393" />
-    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1580829741394">
+    <state width="1874" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581087372159" />
+    <state width="1874" height="253" key="GridCell.Tab.0.right" timestamp="1581087372160">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1580829741394" />
+    <state width="1874" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581087372160" />
     <state x="484" y="161" key="SettingsEditor" timestamp="1580302665506">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="484" y="161" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1580302665506" />
-    <state x="543" y="172" width="804" height="518" key="Vcs.Push.Dialog.v2" timestamp="1580228406153">
+    <state x="541" y="154" width="804" height="518" key="Vcs.Push.Dialog.v2" timestamp="1580886934417">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="543" y="172" width="804" height="518" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1580228406153" />
+    <state x="541" y="154" width="804" height="518" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1580886934417" />
     <state x="701" y="446" width="507" height="150" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1578929860697">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -310,9 +280,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="603" y="275" width="714" height="538" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1579944475052" />
-    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1580807572220">
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup" timestamp="1581082768735">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1580807572220" />
+    <state x="623" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1581082768735" />
   </component>
 </project>

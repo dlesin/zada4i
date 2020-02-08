@@ -25,7 +25,7 @@ const Logout = () => {
             {auth_token: token}, config)
             .then(({data}) => {
                 localStorage.removeItem("token");
-                history.push('/')
+                history.push('/login')
             })
             .catch((e) => {
                 alert(e.response.data.detail)
@@ -34,7 +34,7 @@ const Logout = () => {
 
     return (
         <div className="logout">
-            <button onClick={onMain} className='button' style={{marginRight: "20px"}}>На главную</button>
+            <button onClick={onMain} className='button' style={{marginRight: "20px"}}>Вернуть задачи</button>
             <button onClick={onLogout} className='button button--grey'>Выйти</button>
         </div>
     );

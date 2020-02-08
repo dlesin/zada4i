@@ -7,6 +7,8 @@ import {faBars} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import {AddList, List, Tasks} from "./components";
 import History from "./components/Tasks/History"
+import Logout from "./components/Auth/Logout";
+import Profile from "./components/Auth/Profile";
 
 function App() {
 
@@ -14,6 +16,7 @@ function App() {
 
     const [state, dispatch] = useReducer(Reduser, false);
     const [activeItem, setActiveItem] = useState(null);
+    // const [myList, setMyList] = useState(null);
     let history = useHistory();
 
     useEffect(() => {
@@ -39,12 +42,10 @@ function App() {
         const get = () => {
             auth && axios.get(API_URL + "/api/lists/", auth).then(({data}) => dispatch({
                 type: 'GET_LISTS',
-                payload: {
-                    lists: data
-                }
+                payload: data
             }));
         };
-        setInterval(get, 1000 * 60)
+        setInterval(get, 60000)
     };
 
     const onAddList = (inputValue, color) => {
@@ -164,7 +165,6 @@ function App() {
     };
 
     const onCompleteTask = obj => {
-        console.log(obj)
         axios.patch(API_URL + '/api/tasks/update/' + obj.task + '/', {
             list: obj.list,
             executor: obj.executor,
@@ -193,132 +193,191 @@ function App() {
     useEffect(() => {
         state.auth && axios.get(API_URL + "/api/colors/", state.auth).then(({data}) => dispatch({
             type: 'GET_COLORS',
-            payload: {
-                colors: data
+            payload: data
+        })).catch(e => {
+            if (e.response.status === 401) {
+                localStorage.removeItem("token");
+                history.push('/login')
             }
-        }));
-    }, [state.auth, API_URL]);
+        })
+    }, [state.auth, API_URL, history]);
 
     useEffect(() => {
         state.auth && axios.get(API_URL + "/api/auth/users/me/", state.auth).then(({data}) => dispatch({
             type: 'GET_ME',
-            payload: {
-                me: data
+            payload: data
+        })).catch(e => {
+            if (e.response.status === 401) {
+                localStorage.removeItem("token");
+                history.push('/login')
             }
-        }));
-    }, [state.auth, API_URL]);
+        })
+    }, [state.auth, API_URL, history]);
 
     useEffect(() => {
-        state.auth && axios.get(API_URL + "/api/lists/", state.auth).then(({data}) => dispatch({
-            type: 'GET_LISTS',
-            payload: {
-                lists: data
+        state.auth && axios.get(API_URL + "/api/lists/", state.auth).then(({data}) => {
+            dispatch({
+                type: 'GET_LISTS',
+                payload: data
+            })
+        }).catch(e => {
+            if (e.response.status === 401) {
+                localStorage.removeItem("token");
+                history.push('/login')
             }
-        }));
-    }, [state.auth, API_URL]);
+        })
+    }, [state.auth, API_URL, history]);
 
     useEffect(() => {
         state.auth && axios.get(API_URL + "/api/department/", state.auth).then(({data}) => dispatch({
             type: 'GET_DEPARTMENT',
-            payload: {
-                department: data
+            payload: data[0]
+        })).catch(e => {
+            if (e.response.status === 401) {
+                localStorage.removeItem("token");
+                history.push('/login')
+            }})
+        }, [state.auth, API_URL, history]);
+
+        useEffect(() => {
+            state.auth && state.me && state.lists && state.colors && state.department ?
+                dispatch({
+                    type: 'IS_LOAD',
+                    payload: {
+                        isload: true
+                    }
+                }) :
+                dispatch({
+                    type: 'IS_LOAD',
+                    payload: {
+                        isload: false
+                    }
+                })
+        }, [state.auth, state.me, state.lists, state.colors, state.department]);
+
+        useEffect(() => {
+            const listId = history.location.pathname.split('lists/')[1];
+            const list = state.lists && state.lists.find(list => list.id === Number(listId));
+            setActiveItem(list)
+        }, [state.lists, history.location.pathname]);
+
+
+        useEffect(() => {
+            if (state.lists && state.me) {
+                var newList = JSON.parse(JSON.stringify(state.lists))
+                let mylist = newList.map(myitem => {
+                    myitem.tasks = myitem.tasks.filter(task => task.executor === state.me.id);
+                    return myitem
+                });
+                dispatch({
+                    type: 'MY_LIST',
+                    payload: mylist
+                })
             }
-        }));
-    }, [state.auth, API_URL]);
+        }, [state.lists, history.location.pathname, state.me]);
 
-    useEffect(() => {
-        state.auth && state.me && state.lists && state.colors && state.department ?
-            dispatch({
-                type: 'IS_LOAD',
-                payload: {
-                    isload: true
-                }
-            }) :
-            dispatch({
-                type: 'IS_LOAD',
-                payload: {
-                    isload: false
-                }
-            })
-    }, [state.auth, state.me, state.lists, state.colors, state.department]);
+        useEffect(() => {
+            getList(state.auth)
+            // eslint-disable-next-line
+        }, [state.auth]);
 
-    useEffect(() => {
-        const listId = history.location.pathname.split('lists/')[1];
-        const list = state.lists && state.lists.find(list => list.id === Number(listId));
-        setActiveItem(list)
-    }, [state.lists, history.location.pathname]);
+        // console.log(state);
 
-    useEffect(() => {
-        getList(state.auth)
-    }, [state.auth]);
+        return (
+            <Context.Provider
+                value={{
+                    state,
+                    dispatch,
+                    onAddList,
+                    onEditListTitle,
+                    onAddTask,
+                    onRemoveTask,
+                    onEditTask,
+                    onCompleteTask
+                }}>
+                {state.isload ?
+                    <div className='todo'>
+                        <div className='todo__sidebar'>
+                            <div className="todo__department">Отдел: {state.department.name}</div>
+                            <ul className="todo__nav">
+                                <li>
+                                    <Link className="todo__profile"
+                                          to="/profile"><span>{state.me.first_name} {state.me.last_name}</span></Link>
+                                </li>
+                                <li>
+                                    <Link className="todo__logout" to="/logout"><span>Выход</span></Link>
+                                </li>
+                            </ul>
+                            <div>
+                                <List
+                                    onClickItem={() => history.push('/history')}
+                                    items={[
+                                        {
+                                            active: history.location.pathname === '/history',
+                                            icon: <FontAwesomeIcon icon={faBars}/>,
+                                            name: "История"
+                                        }
+                                    ]}
+                                />
+                                <List onClickItem={() => history.push('/mylist')}
+                                      items={[
+                                          {
+                                              active: history.location.pathname === '/mylist',
+                                              icon: <FontAwesomeIcon icon={faBars}/>,
+                                              name: "Мои"
+                                          }
+                                      ]}
+                                />
+                                <List
+                                    onClickItem={() => history.push('/')}
+                                    items={[
+                                        {
+                                            active: history.location.pathname === '/',
+                                            icon: <FontAwesomeIcon icon={faBars}/>,
+                                            name: "Все задачи"
+                                        }
+                                    ]}
+                                />
+                            </div>
+                            <List
+                                items={state.lists}
+                                onRemove={item => onRemove(item)}
+                                onClickItem={item => history.push(`/lists/${item.id}`)}
+                                activeItem={activeItem}
+                                isRemovable={state.me.is_leader}
+                            />
+                            {state.me.is_leader && <AddList colors={state.colors}/>}
+                        </div>
+                        <div className='todo__tasks'>
+                            <Route exact path='/mylist'>
+                                {state.mylists.map(item =>
+                                    <Tasks key={item.id} list={item}/>
+                                )}
+                            </Route>
+                            <Route exact path='/'>
+                                {state.lists.map(list =>
+                                    <Tasks key={list.id} list={list}/>
+                                )}
+                            </Route>
 
-    // console.log(state)
-
-    return (
-        <Context.Provider
-            value={{state, dispatch, onAddList, onEditListTitle, onAddTask, onRemoveTask, onEditTask, onCompleteTask}}>
-            {state.isload ?
-                <div className='todo'>
-                    <div className='todo__sidebar'>
-                        <div className="todo__department">Отдел: {state.department[0].name}</div>
-                        <ul className="todo__nav">
-                            <li>
-                                <Link className="todo__profile"
-                                      to="/profile"><span>{state.me.first_name} {state.me.last_name}</span></Link>
-                            </li>
-                            <li>
-                                <Link className="todo__logout" to="/logout"><span>Выход</span></Link>
-                            </li>
-                        </ul>
-                        <List
-                            onClickItem={() => history.push('/history')}
-                            items={[
-                                {
-                                    active: history.location.pathname === '/history',
-                                    icon: <FontAwesomeIcon icon={faBars}/>,
-                                    name: "История"
-                                }
-                            ]}
-                        />
-                        <List
-                            onClickItem={() => history.push('/')}
-                            items={[
-                                {
-                                    active: history.location.pathname === '/',
-                                    icon: <FontAwesomeIcon icon={faBars}/>,
-                                    name: "Все задачи"
-                                }
-                            ]}
-                        />
-                        <List
-                            items={state.lists}
-                            onRemove={item => onRemove(item)}
-                            onClickItem={item => history.push(`/lists/${item.id}`)}
-                            activeItem={activeItem}
-                            isRemovable={state.me.is_leader}
-                        />
-                        {state.me.is_leader && <AddList colors={state.colors}/>}
+                            <Route path='/lists/:id'>
+                                {activeItem &&
+                                <Tasks list={activeItem} currentUser={state.me}
+                                       currentDepartment={state.department}/>}
+                            </Route>
+                            <Route path='/history'>
+                                <History auth={state.auth} currentUser={state.me}
+                                         currentDepartment={state.department}/>
+                            </Route>
+                            <Route path='/logout' component={Logout}/>
+                            <Route path='/profile' component={Profile}/>
+                        </div>
                     </div>
-                    <div className='todo__tasks'>
-                        <Route exact path='/'>
-                            {state.lists.map(list =>
-                                <Tasks key={list.id} list={list}/>
-                            )}
-                        </Route>
-                        <Route path='/lists/:id'>
-                            {activeItem &&
-                            <Tasks list={activeItem} currentUser={state.me} currentDepartment={state.department}/>}
-                        </Route>
-                        <Route path='/history'>
-                            <History auth={state.auth} currentUser={state.me} currentDepartment={state.department}/>
-                        </Route>
-                    </div>
-                </div>
-                : (
-                    <div></div>
-                )}
-        </Context.Provider>
-    );
-}
+                    : (
+                        <div></div>
+                    )}
+            </Context.Provider>
+        );
+    }
 
-export default App;
+    export default App;

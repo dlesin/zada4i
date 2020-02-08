@@ -8,22 +8,22 @@ export const Reduser = (state, action) => {
         case 'GET_LISTS':
             return {
                 ...state,
-                ...action.payload
+                lists: [...action.payload]
             };
         case 'GET_DEPARTMENT':
             return {
                 ...state,
-                ...action.payload
+                department: action.payload
             };
         case 'GET_COLORS':
             return {
                 ...state,
-                ...action.payload
+                colors: [...action.payload]
             };
         case 'GET_ME':
             return {
                 ...state,
-                ...action.payload
+                me: action.payload
             };
         case 'ADD_LIST':
             return {
@@ -58,7 +58,7 @@ export const Reduser = (state, action) => {
         case 'HISTORY_TASK':
             return {
                 ...state,
-                ...action.payload
+                tasks: [...action.payload]
             };
         case 'REMOVE_TASK':
             return {
@@ -69,6 +69,11 @@ export const Reduser = (state, action) => {
             return {
                 ...state,
                 ...action.payload
+            };
+        case 'MY_LIST':
+            return {
+                ...state,
+                mylists: [...action.payload]
             };
         default:
             return state

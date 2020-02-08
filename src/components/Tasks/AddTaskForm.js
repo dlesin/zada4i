@@ -12,7 +12,7 @@ function AddTaskForm({list}) {
     const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
     const {state, onAddTask} = useContext(Context);
 
-    const options = state.department && state.department[0].users.map(item => item.last_name + ' ' + item.first_name);
+    const options = state.department && state.department.users.map(item => item.last_name + ' ' + item.first_name);
 
     const onSelect = (value) => {
         setSelectedValue(value);
@@ -29,7 +29,7 @@ function AddTaskForm({list}) {
         if (state.me.is_leader) {
             if (selectedValue.value) {
                 last_name = selectedValue.value.split(' ')[0];
-                executorUser = state.department[0].users.find(user => user.last_name === last_name);
+                executorUser = state.department.users.find(user => user.last_name === last_name);
             } else {
                 alert('Нужно выбрать исполнителя!');
                 return;

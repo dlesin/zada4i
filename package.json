@@ -8,6 +8,7 @@
     "@fortawesome/react-fontawesome": "^0.1.8",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "django-react-csrftoken": "^1.0.4",
     "env-cmd": "^10.0.1",
     "node-sass": "^4.13.1",
     "prettier": "^1.19.1",
@@ -38,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "renamer": "^1.1.4"
   }
 }
