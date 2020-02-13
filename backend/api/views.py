@@ -68,5 +68,8 @@ class ListListAPIView(ListAPIView):
 
 
 class TaskListAPIView(ListAPIView):
-    queryset = Task.objects.order_by('-created_at')
     serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        current_user = User.objects.get(username=self.request.user)
+        return Task.objects.filter(department=current_user.department).order_by('-created_at')

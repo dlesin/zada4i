@@ -1,46 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
-import axios from "axios";
 import "./Tasks.scss"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
 import {Context} from "../../context";
 
 const History = () => {
-    const API_URL = process.env.REACT_APP_API_URL;
-    const [tasksToSearch, setTasksToSearch] = useState([]);
     const [isLoad, setLoad] = useState(false);
+    const [tasksToSearch, setTasksToSearch] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const {state, dispatch} = useContext(Context);
+    const {state} = useContext(Context);
     const handleChange = event => {
         setSearchTerm(event.target.value);
     };
-
-    useEffect(() => {
-        axios.get(API_URL + "/api/tasks/", state.auth).then(({data}) => {
-            dispatch({
-                type: 'HISTORY_TASK',
-                payload: data
-            });
-        });
-        setLoad(true)
-    }, [state.auth, API_URL, dispatch]);
-
-    const getTasks = (auth) => {
-        const get = () => {
-            auth && axios.get(API_URL + "/api/tasks/", state.auth).then(({data}) => {
-                dispatch({
-                    type: 'HISTORY_TASK',
-                    payload: data
-                });
-            });
-        };
-        setInterval(get, 60000)
-    };
-    useEffect(() => {
-        getTasks(state.auth)
-    // eslint-disable-next-line
-    }, [state.auth]);
 
     useEffect(() => {
         if (state.department && state.tasks) {
@@ -57,28 +29,28 @@ const History = () => {
                 return item
             });
             setTasksToSearch(newArray);
+            setLoad(true)
         }
     }, [state.tasks, isLoad, state.department]);
 
-    const searchArray = tasksToSearch;
-
     useEffect(() => {
-        const searchResults = searchArray;
+        const searchResults = tasksToSearch;
         const results = searchResults.filter(item => item.text.toLowerCase().includes(searchTerm.toLowerCase())
             || item.created_at.toLowerCase().includes(searchTerm.toLowerCase()) ||
             item.executor.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setSearchResults(results);
-    }, [searchTerm, searchArray]);
+    }, [searchTerm, tasksToSearch]);
 
-    return (isLoad ? (
+    return (isLoad ?
             <div className="tasks">
                 <div className="tasks__title">
                     <input className="field field-mini" type="text" placeholder="Поиск" value={searchTerm}
                            onChange={handleChange}/>
                 </div>
+
                 <div className='tasks__items'>
-                    {isLoad && searchResults.map(item => (
+                    {searchResults.map(item => (
                         <div key={item.id} className="tasks__items-row">
                             <div className="tasks__items-row-task">
                                 <div className='checkbox'>
@@ -88,23 +60,25 @@ const History = () => {
                                         <FontAwesomeIcon className='checkbox__icon' icon={faCheck}/>
                                     </label>
                                 </div>
-                                <p>{item.text}</p>
+                                <div className="tasks__items-row-text">
+                                    {item.text}
+                                </div>
                             </div>
                             <div className="tasks__items-info">
                                 {item.comment &&
-                                <div className="tasks__items-row-comment">Коментарий: {item.comment}</div>}
+                                <div className="tasks__items-row-comment">Ком: {item.comment}</div>}
                                 <div className="tasks__items-row-executor">
-                                    Исполнитель: {item.executor}
+                                    Исп: {item.executor}
                                 </div>
                                 <div className="tasks__items-row-executor">
-                                    Создатель: {item.executor}
+                                    Соз: {item.executor}
                                 </div>
-                                <div className="tasks__items-row-comment">Создано: {item.created_at}</div>
+                                <div className="tasks__items-row-comment">{item.created_at}</div>
                             </div>
                         </div>))
                     }
                 </div>
-            </div>) : <div></div>
+            </div> : <div></div>
     );
 };
 export default History;

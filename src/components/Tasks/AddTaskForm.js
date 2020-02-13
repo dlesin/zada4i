@@ -12,7 +12,7 @@ function AddTaskForm({list}) {
     const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
     const {state, onAddTask} = useContext(Context);
 
-    const options = state.department && state.department.users.map(item => item.last_name + ' ' + item.first_name);
+    const options = state.department && state.department.users.map(item => item.last_name + ' ' + item.first_name).sort();
 
     const onSelect = (value) => {
         setSelectedValue(value);
@@ -40,6 +40,7 @@ function AddTaskForm({list}) {
         const obj = {
             "creator": state.me.id,
             "executor": executorUser.id,
+            "department": state.me.department,
             "list": list.id,
             "text": inputValue,
             "completed": false

@@ -11,9 +11,10 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
     const [inputValue, setInputValue] = useState('');
     const [commentValue, setCommentValue] = useState('');
     const [selectedValue, setSelectedValue] = useState('Выбери исполнителя');
+    const [visiblePopup, setVisiblePopup] = useState(false);
     const {state, onRemoveTask, onEditTask, onCompleteTask} = useContext(Context);
 
-    const options = state.department && state.department.users.map(item => item.last_name + ' ' + item.first_name);
+    const options = state.department && state.department.users.map(item => item.last_name + ' ' + item.first_name).sort();
 
     const onSelect = (value) => {
         setSelectedValue(value);
@@ -73,8 +74,7 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
             toggleCommentFormVisible();
         }
     };
-    // console.log(new Date(timestamp).toLocaleString());
-    // console.log(moment(timestamp, 'MM-DD-YYYY'))
+
     return (
         <div>
             {!visibleForm ? (
@@ -92,7 +92,12 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
                                             <FontAwesomeIcon className='checkbox__icon' icon={faCheck}/>
                                         </label>)}
                                 </div>
-                                <p>{text}</p>
+                                <div onMouseEnter={() => setVisiblePopup(true)}
+                                     onMouseLeave={() => setVisiblePopup(false)}
+                                     className="tasks__items-row-text">
+                                    {text}
+                                </div>
+                                {visiblePopup && <div className="tasks__items-row-popup">{text}</div>}
                                 {state.me.is_leader && <div className="tasks__items-row-actions">
                                     <div>
                                         <FontAwesomeIcon onClick={toggleFormVisible} className='tasks__pen'
@@ -106,14 +111,11 @@ const Task = ({id, text, creator, executor, comment, completed, priority, create
                             </div>
                             <div className="tasks__items-info">
                                 {comment && completed &&
-                                <div className="tasks__items-row-comment">Коментарий: {comment}</div>}
+                                <div className="tasks__items-row-comment">Ком: {comment}</div>}
                                 <div className="tasks__items-row-executor">
-                                    Исполнитель: {loadExecutorLastName(executor, state.department)}
+                                    Исп: {loadExecutorLastName(executor, state.department)}
                                 </div>
-                                <div className="tasks__items-row-date">
-                                    Дата: {created_at}
-                                </div>
-
+                                <div className="tasks__items-row-date">{created_at}</div>
                             </div>
                         </div>) : (
                         <div className="tasks__form-block">

@@ -20,11 +20,11 @@ class DepartmentSerializer(ModelSerializer):
 
     class Meta:
         model = Department
-        fields = ['id', 'name', 'timestamp', 'users']
+        fields = ('id', 'name', 'timestamp', 'users')
 
     def get_users(self, obj):
         result = User.objects.filter(department=obj)
-        serializer = UserSerializer(result, many=True)
+        serializer = UserSerializer(result, read_only=True, many=True)
         return serializer.data
 
 
@@ -37,7 +37,7 @@ class ColorSerializer(ModelSerializer):
 class TaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'creator', 'executor', 'list', 'color', 'text', 'comment', 'un_comment', 'completed', 'priority', 'created_at',
+        fields = ['id', 'creator', 'executor', 'department', 'list', 'text', 'comment', 'completed', 'created_at',
                   'timestamp']
 
 
@@ -72,5 +72,5 @@ class CreateTaskSerializer(ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ['id', 'creator', 'executor', 'list', 'color', 'text', 'comment', 'completed', 'created_at',
+        fields = ['id', 'creator', 'executor', 'list', 'department', 'text', 'comment', 'completed', 'created_at',
                   'timestamp']
